@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Election Assistant</title>
+    <meta name="description" content="An interactive guide to understanding the election process, timelines, and steps to participate.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+        <div class="gradient-sphere sphere-3"></div>
+    </div>
+
+    <header class="glass-header">
+        <div class="container header-container">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="2" y1="2" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#4F46E5"/>
+                            <stop offset="1" stop-color="#EC4899"/>
+                        </linearGradient>
+                        <linearGradient id="paint1_linear" x1="2" y1="17" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#4F46E5"/>
+                            <stop offset="1" stop-color="#EC4899"/>
+                        </linearGradient>
+                        <linearGradient id="paint2_linear" x1="2" y1="12" x2="22" y2="17" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#4F46E5"/>
+                            <stop offset="1" stop-color="#EC4899"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>ElectAssist</span>
+            </div>
+            <nav>
+                <ul style="align-items: center; list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0;">
+                    <li><a href="#/" data-i18n="nav_overview">Home</a></li>
+                    <li><a href="#/candidates">Candidates</a></li>
+                    <li><a href="#/news">News & Alerts</a></li>
+                    <li id="nav-dashboard" style="display:none;"><a href="#/dashboard" style="color: var(--primary-color); font-weight: 600;">Dashboard</a></li>
+                    <li id="nav-admin" style="display:none;"><a href="#/admin" style="color: var(--secondary-color); font-weight: 600;">Admin</a></li>
+                    <li id="nav-login"><a href="#" onclick="document.getElementById('login-modal').style.display='block'; return false;" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: 8px;">Login</a></li>
+                    <li id="nav-logout" style="display:none;"><a href="#" onclick="window.handleLogout(); return false;" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: 8px; color: var(--danger-color); border-color: var(--danger-color);">Logout</a></li>
+                    <li>
+                        <select id="lang-selector" style="background: var(--glass-bg); color: var(--text-primary); border: 1px solid var(--glass-border); padding: 5px 10px; border-radius: 8px; font-family: 'Inter', sans-serif; cursor: pointer;">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी</option>
+                            <option value="bn">বাংলা</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app-container">
+        <!-- SPA Views will be rendered here -->
+    </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content glass-card" style="max-width: 800px; padding: 2rem;">
+            <span class="close-btn" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
+            <h2 style="margin-bottom: 2rem; text-align: center;">Welcome to ElectAssist</h2>
+            
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                <!-- User Login -->
+                <div style="flex: 1; min-width: 300px; padding: 1.5rem; background: rgba(0,0,0,0.03); border: 1px solid var(--glass-border); border-radius: 12px;">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Voter Login</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Access your personalized dashboard.</p>
+                    <input type="text" id="login-username" placeholder="Enter Voter ID or Name" style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--glass-bg); color: var(--text-primary);">
+                    <input type="password" id="login-password" placeholder="Password" style="width: 100%; padding: 0.8rem; margin-bottom: 1.5rem; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--glass-bg); color: var(--text-primary);">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="handleLogin('user')">Sign In as Voter</button>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary);">Demo: Use any credentials to login.</p>
+                </div>
+
+                <!-- Admin Login -->
+                <div style="flex: 1; min-width: 300px; padding: 1.5rem; background: rgba(0,0,0,0.03); border: 1px solid var(--glass-border); border-radius: 12px;">
+                    <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">Admin Login</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Secure platform management access.</p>
+                    <input type="text" id="admin-username" placeholder="Admin ID" style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--glass-bg); color: var(--text-primary);">
+                    <input type="password" id="admin-password" placeholder="Password" style="width: 100%; padding: 0.8rem; margin-bottom: 1.5rem; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--glass-bg); color: var(--text-primary);">
+                    <button class="btn btn-secondary" style="width: 100%;" onclick="handleLogin('admin')">Access Panel</button>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary);">Demo: Use 'admin' / 'admin123'</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS FOR TOOLS -->
+
+    <!-- Eligibility Checker Modal -->
+    <div id="eligibility-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="document.getElementById('eligibility-modal').style.display='none'">&times;</span>
+            <h2 data-i18n="eligibility_checker">Eligibility Checker</h2>
+            <p data-i18n="eligibility_desc">Answer a few questions to check if you're eligible to vote.</p>
+            
+            <div class="eligibility-form">
+                <label class="form-label">
+                    <input type="checkbox" id="age-check"> 
+                    <span data-i18n="eligible_age">I am 18 years or older</span>
+                </label>
+                <label class="form-label">
+                    <input type="checkbox" id="citizen-check"> 
+                    <span data-i18n="eligible_citizen">I am an Indian citizen</span>
+                </label>
+                <label class="form-label">
+                    <input type="checkbox" id="resident-check"> 
+                    <span data-i18n="eligible_resident">I am a resident of my constituency</span>
+                </label>
+                <label class="form-label">
+                    <input type="checkbox" id="crime-check"> 
+                    <span data-i18n="eligible_crime">I have not been convicted of serious crime</span>
+                </label>
+                
+                <button class="btn btn-primary" onclick="checkEligibility()" style="margin-top: 1rem; width: 100%;">Check Eligibility</button>
+                <div id="eligibility-result" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Polling Booth Locator Modal -->
+    <div id="booth-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="document.getElementById('booth-modal').style.display='none'">&times;</span>
+            <h2 data-i18n="polling_locator">Polling Booth Locator</h2>
+            <p data-i18n="booth_locate_desc">Find your nearest polling station.</p>
+            
+            <div class="booth-locator">
+                <div style="margin-bottom: 1rem;">
+                    <label data-i18n="label_voter_id">Voter ID:</label>
+                    <input type="text" id="booth-voter-id" placeholder="e.g., ABC1234567" style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-bg); color: var(--text-primary);">
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label data-i18n="label_part_no">Part Number:</label>
+                    <input type="text" id="booth-part-no" placeholder="e.g., 12" style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-bg); color: var(--text-primary);">
+                </div>
+                
+                <button class="btn btn-primary" onclick="findPollingBooth()" style="width: 100%; margin-top: 1rem;">Find Booth</button>
+                <div id="booth-result" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid var(--glass-border);"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Election Reminders Modal -->
+    <div id="reminder-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="document.getElementById('reminder-modal').style.display='none'">&times;</span>
+            <h2 data-i18n="set_reminder">Set Election Reminders</h2>
+            <p data-i18n="reminder_desc">Get notified about important election dates.</p>
+            
+            <div class="reminder-form">
+                <label class="form-label">
+                    <input type="checkbox" id="registration-reminder" checked> 
+                    <span data-i18n="reminder_registration">Registration Deadline - 30 days before election</span>
+                </label>
+                <label class="form-label">
+                    <input type="checkbox" id="campaign-reminder" checked> 
+                    <span data-i18n="reminder_campaign">Campaign Period Starts</span>
+                </label>
+                <label class="form-label">
+                    <input type="checkbox" id="voting-reminder" checked> 
+                    <span data-i18n="reminder_voting">Election Day - 1 day before</span>
+                </label>
+                <label class="form-label">
+                    <input type="checkbox" id="results-reminder" checked> 
+                    <span data-i18n="reminder_results">Results Day</span>
+                </label>
+                
+                <div style="margin-top: 1rem;">
+                    <label data-i18n="label_email">Email Address:</label>
+                    <input type="email" id="reminder-email" placeholder="your@email.com" style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-bg); color: var(--text-primary);">
+                </div>
+                
+                <button class="btn btn-primary" onclick="setReminder()" style="margin-top: 1rem; width: 100%;">Enable Reminders</button>
+                <div id="reminder-result" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personalized Voter Guidance Modal -->
+    <div id="guidance-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="document.getElementById('guidance-modal').style.display='none'">&times;</span>
+            <h2 data-i18n="voter_guidance_title">Personalized Voter Guidance</h2>
+            <p data-i18n="guidance_subtitle">Get customized recommendations based on your values and interests.</p>
+            
+            <div class="guidance-form">
+                <div style="margin-bottom: 1rem;">
+                    <label data-i18n="label_priority">What is your top priority?</label>
+                    <select id="priority-select" style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-bg); color: var(--text-primary);">
+                        <option value="">Select Priority</option>
+                        <option value="education">Education</option>
+                        <option value="health">Healthcare</option>
+                        <option value="economy">Economy & Jobs</option>
+                        <option value="infrastructure">Infrastructure</option>
+                        <option value="agriculture">Agriculture</option>
+                        <option value="environment">Environment</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label data-i18n="label_constituency">Your Constituency:</label>
+                    <select id="guidance-constituency" style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-bg); color: var(--text-primary);">
+                        <option value="" selected>Select Constituency</option>
+                        <option value="159">Bhabanipur</option>
+                        <option value="210">Nandigram</option>
+                        <option value="150">Jadavpur</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" onclick="getPersonalizedGuidance()" style="width: 100%; margin-top: 1rem;">Get My Guidance</button>
+                <div id="guidance-result" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Election Updates Modal -->
+    <div id="updates-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="document.getElementById('updates-modal').style.display='none'">&times;</span>
+            <h2 data-i18n="live_updates">Live Election Updates</h2>
+            <p data-i18n="updates_desc">Real-time election statistics and results.</p>
+            
+            <div class="updates-container">
+                <div class="update-tabs">
+                    <button class="tab-btn active" onclick="switchTab('turnout')">Voter Turnout</button>
+                    <button class="tab-btn" onclick="switchTab('results')">Results</button>
+                    <button class="tab-btn" onclick="switchTab('news')">News</button>
+                </div>
+                
+                <div id="turnout-tab" class="tab-content active">
+                    <div style="padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 1rem;">
+                        <h4 data-i18n="overall_turnout">Overall Turnout: Live data currently unavailable</h4>
+                        <div style="background: var(--glass-bg); border-radius: 6px; height: 20px; margin: 0.5rem 0; overflow: hidden;">
+                            <div style="background: linear-gradient(90deg, #4F46E5, #EC4899); width: 0%; height: 100%;"></div>
+                        </div>
+                        <p data-i18n="turnout_voters">Configure a verified turnout data source to display this metric.</p>
+                    </div>
+                </div>
+                
+                <div id="results-tab" class="tab-content" style="display: none;">
+                    <div style="padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 8px;">
+                        <p data-i18n="results_updating">Results will be displayed on election day...</p>
+                    </div>
+                </div>
+                
+                <div id="news-tab" class="tab-content" style="display: none;">
+                    <div style="padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 8px;">
+                        <p data-i18n="news_item1">Live data currently unavailable</p>
+                        <p data-i18n="news_item2">Open the News page to fetch verified feed from configured sources.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Modal -->
+    <div id="chatbot-modal" class="modal">
+        <div class="modal-content glass-card chatbot-container">
+            <span class="close-btn" onclick="document.getElementById('chatbot-modal').style.display='none'">&times;</span>
+            <h2 data-i18n="election_bot">Election Assistant Chatbot</h2>
+            
+            <div id="chatbot-messages" class="chatbot-messages" style="height: 300px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.05);">
+                <div class="bot-message">
+                    <p data-i18n="bot_welcome">Hello! I'm your election assistant. How can I help you today? You can ask me about voting procedures, eligibility, candidates, polling booths, and more!</p>
+                </div>
+            </div>
+            
+            <div class="chat-input-row" style="display: flex; gap: 0.5rem; width: 100%; align-items: stretch;">
+                <input type="text" id="chatbot-input" placeholder="Type your question..." style="flex: 1; padding: 0.75rem; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-bg); color: var(--text-primary);">
+                <button class="btn btn-primary" onclick="sendChatbotMessage()" style="padding: 0.75rem 1.5rem;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="glass-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span>ElectAssist</span>
+                </div>
+                <p>Empowering voters with clear, accessible information.</p>
+            </div>
+            <div class="footer-links">
+                <p>&copy; 2026 ElectAssist. Informational purposes only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

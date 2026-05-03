@@ -1,0 +1,47 @@
+[
+    {
+        "partNo": "12",
+        "candidates": [
+            {
+                "name": "Arvind Singh",
+                "party": "National Development Party",
+                "symbol": "Sun",
+                "promise": "Better education and clean water."
+            },
+            {
+                "name": "Meera Reddy",
+                "party": "Progressive Alliance",
+                "symbol": "Tree",
+                "promise": "Empowering local businesses."
+            }
+        ]
+    },
+    {
+        "partNo": "45",
+        "candidates": [
+            {
+                "name": "Vikram Desai",
+                "party": "United Citizens Front",
+                "symbol": "Book",
+                "promise": "Improved healthcare infrastructure."
+            },
+            {
+                "name": "Sita Kumari",
+                "party": "Independent",
+                "symbol": "Bicycle",
+                "promise": "Women safety and empowerment."
+            }
+        ]
+    },
+    {
+        "partNo": "88",
+        "candidates": [
+            {
+                "name": "Rohan Mehta",
+                "party": "Democratic Coalition",
+                "symbol": "Star",
+                "promise": "Job creation and youth programs."
+            }
+        ]
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "voterId": "ABC1234567",
+        "partNo": "12",
+        "name": "Rajesh Kumar",
+        "status": "Registered",
+        "pollingStation": "Govt High School, Room 1, New Delhi"
+    },
+    {
+        "voterId": "XYZ9876543",
+        "partNo": "45",
+        "name": "Priya Sharma",
+        "status": "Registered",
+        "pollingStation": "Community Center, Sector 4, Mumbai"
+    },
+    {
+        "voterId": "LMN4567890",
+        "partNo": "12",
+        "name": "Amit Patel",
+        "status": "Not Found",
+        "pollingStation": ""
+    },
+    {
+        "voterId": "DEF1122334",
+        "partNo": "88",
+        "name": "Sneha Gupta",
+        "status": "Registered",
+        "pollingStation": "Primary School, Block B, Bangalore"
+    }
+]

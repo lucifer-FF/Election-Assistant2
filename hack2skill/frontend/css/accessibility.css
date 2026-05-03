@@ -1,0 +1,227 @@
+/**
+ * ACCESSIBILITY STYLES
+ * Support for screen readers, keyboard navigation, high contrast
+ */
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus Visible for Keyboard Navigation */
+:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline-offset: 2px;
+}
+
+a:focus-visible {
+  outline-offset: 2px;
+}
+
+/* Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: more) {
+  * {
+    border-width: 2px;
+  }
+
+  button {
+    border: 2px solid currentColor;
+  }
+
+  input,
+  textarea,
+  select {
+    border-width: 2px;
+  }
+}
+
+/* Color Blindness Support - Deuteranopia (Green-Blind) */
+@media (color-gamut: srgb) {
+  /* Use patterns instead of colors only */
+  .alert-success {
+    border-left: 4px solid var(--success-color);
+  }
+
+  .alert-error {
+    border-left: 4px solid var(--error-color);
+  }
+
+  .alert-warning {
+    border-left: 4px solid var(--warning-color);
+  }
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Hover State Indicators */
+button:hover::after,
+a:hover::after {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  margin-left: 4px;
+  animation: pulse 1s infinite;
+}
+
+/* High Contrast Text */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #f9fafb;
+    background-color: #111827;
+  }
+}
+
+/* Large Text Mode */
+@media (prefers-reduced-data: no-preference) and (min-width: 1920px) {
+  body {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  button,
+  input,
+  textarea {
+    padding: 12px 16px;
+    font-size: 18px;
+  }
+}
+
+/* Touch Target Size (Minimum 44x44px for WCAG AAA) */
+button,
+a[role="button"],
+input[type="checkbox"],
+input[type="radio"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Avoid Autofill Styling Issues */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+}
+
+/* Form Labels */
+label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+label[aria-required="true"]::after {
+  content: ' *';
+  color: var(--error-color);
+  font-weight: bold;
+}
+
+/* Error Messages */
+.error-message,
+[role="alert"] {
+  font-weight: 500;
+  padding: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+/* Ensure Sufficient Color Contrast */
+a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* Language Declaration */
+html[lang="hi"] {
+  font-family: 'Noto Sans Devanagari', var(--font-family);
+}
+
+html[lang="bn"] {
+  font-family: 'Noto Sans Bengali', var(--font-family);
+}
+
+/* Multilingual Support */
+[lang="hi"] {
+  font-size: 1.1em;
+  line-height: 1.8;
+}
+
+[lang="bn"] {
+  font-size: 1.1em;
+  line-height: 1.8;
+}
+
+/* Zoom Support */
+@media (min-width: 1920px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media print {
+  /* Remove interactive elements from print */
+  .no-print,
+  button,
+  [role="button"],
+  nav {
+    display: none !important;
+  }
+
+  /* Ensure links are visible */
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  /* Improve readability */
+  body {
+    color: black;
+    background: white;
+    line-height: 1.5;
+  }
+}

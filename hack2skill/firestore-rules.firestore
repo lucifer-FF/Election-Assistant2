@@ -1,0 +1,124 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection rules
+    match /users/{userId} {
+      // Users can read and write their own profile
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Admins can read all user profiles
+      allow read: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      
+      // Anyone can create a user (for signup)
+      allow create: if request.auth != null && 
+        request.auth.uid == userId &&
+        request.resource.data.keys().hasAll(['uid', 'email', 'fullName']) &&
+        request.resource.data.uid == userId;
+    }
+    
+    // Candidates collection rules
+    match /candidates/{candidateId} {
+      // Anyone can read candidate information
+      allow read: if true;
+      
+      // Only admins can create, update, or delete candidates
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Elections collection rules
+    match /elections/{electionId} {
+      // Anyone can read election information
+      allow read: if true;
+      
+      // Only admins can write election data
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Polling stations collection rules
+    match /pollingStations/{stationId} {
+      // Anyone can read polling station information
+      allow read: if true;
+      
+      // Only admins can write polling station data
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Voter registrations collection rules
+    match /voterRegistrations/{registrationId} {
+      // Users can read their own registration
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Users can create their own registration
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+      
+      // Users can update their own registration
+      allow update: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Admins can read all registrations
+      allow read: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Chat messages collection rules
+    match /chatMessages/{messageId} {
+      // Users can only read their own chat messages
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Users can create their own chat messages
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+      
+      // Admins can read all chat messages for moderation
+      allow read: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Election reminders collection rules
+    match /electionReminders/{reminderId} {
+      // Users can read their own reminders
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Users can create their own reminders
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+      
+      // Users can update their own reminders
+      allow update: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Users can delete their own reminders
+      allow delete: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+    }
+    
+    // News articles collection rules
+    match /news/{articleId} {
+      // Anyone can read news articles
+      allow read: if true;
+      
+      // Only admins can create, update, or delete news articles
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Analytics data collection rules
+    match /analytics/{analyticsId} {
+      // Only admins can read analytics data
+      allow read: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      
+      // System can write analytics data
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}

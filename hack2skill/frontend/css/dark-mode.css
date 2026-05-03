@@ -1,0 +1,112 @@
+/**
+ * DARK MODE STYLES
+ * Enhanced dark mode with proper contrast
+ */
+
+body.dark-mode {
+  --bg-primary: #1f2937;
+  --bg-secondary: #111827;
+  --bg-tertiary: #374151;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --border-color: #4b5563;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+body.dark-mode .card {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .alert {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode .btn-secondary {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .btn-secondary:hover:not(:disabled) {
+  background-color: var(--border-color);
+}
+
+body.dark-mode .modal-content {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .modal-overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+body.dark-mode .skeleton-line {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode a {
+  color: var(--primary-light);
+}
+
+body.dark-mode a:hover {
+  color: var(--primary-color);
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-full);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-size: 1.25rem;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2), 0 0 0 5px var(--primary-color);
+}
+
+/* System preference for dark mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    --bg-primary: #1f2937;
+    --bg-secondary: #111827;
+    --bg-tertiary: #374151;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-tertiary: #9ca3af;
+    --border-color: #4b5563;
+  }
+
+  body:not(.light-mode) {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+}

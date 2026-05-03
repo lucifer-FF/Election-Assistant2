@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "description": "Verified civic references and fallback datasets. No synthetic election facts.",
+    "updatedAt": "2026-05-03T00:00:00.000Z",
+    "sources": [
+      {
+        "name": "Election Commission of India",
+        "url": "https://eci.gov.in/"
+      },
+      {
+        "name": "National Voters' Service Portal",
+        "url": "https://voters.eci.gov.in/"
+      },
+      {
+        "name": "Electoral Search Portal",
+        "url": "https://electoralsearch.eci.gov.in/"
+      },
+      {
+        "name": "Data.gov.in Open Government Data",
+        "url": "https://www.data.gov.in/"
+      }
+    ]
+  },
+  "officialGuidance": [
+    {
+      "id": "eci-registration",
+      "title": "Voter registration and Form 6",
+      "summary": "Official registration should be completed through NVSP/ECI services. Use Form 6 where applicable.",
+      "source": "https://voters.eci.gov.in/"
+    },
+    {
+      "id": "eci-polling-station",
+      "title": "Polling station lookup",
+      "summary": "Polling booth details should be verified through the official Electoral Search portal using voter details.",
+      "source": "https://electoralsearch.eci.gov.in/"
+    }
+  ],
+  "schedule": [],
+  "candidates": [],
+  "pollingBooths": [],
+  "news": []
+}
